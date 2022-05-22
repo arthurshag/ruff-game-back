@@ -1,6 +1,3 @@
-const pg = require('pg');
-
-
 const Pool = require('pg').Pool;
 
 const pool = new Pool({
