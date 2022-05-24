@@ -7,16 +7,22 @@ class CardController {
     }
 
     async createCard(req, res) {
-        const {name, task} = req.body;
+        try {
+
+        const {name, task, img} = req.body;
         if (!name || !task) {
             return;
         }
         const newCard = await db.query(
-            `INSERT INTO cardoffer (name, task)
-             values ($1, $2)
+            `INSERT INTO cardoffer (name, task, img)
+             values ($1, $2, $3)
              RETURNING *`,
-            [name, task]);
+            [name, task, img]);
         res.json(newCard.rows[0]);
+        }
+        catch (e) {
+            res.json("Что-то сломалось, балин")
+        }
     }
 
     async addCard(req, res) {
